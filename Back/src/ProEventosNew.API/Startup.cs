@@ -33,6 +33,7 @@ namespace ProEventosNew.API
                 .UseSqlite(Configuration.GetConnectionString("Default"))
             );
             services.AddControllers();
+            services.AddCors();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "ProEventosNew.API", Version = "v1" });
@@ -54,6 +55,10 @@ namespace ProEventosNew.API
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseCors(option => option.AllowAnyHeader()
+                .AllowAnyMethod()
+                .AllowAnyOrigin());
 
             app.UseEndpoints(endpoints =>
             {
